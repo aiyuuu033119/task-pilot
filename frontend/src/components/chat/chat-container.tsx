@@ -13,7 +13,7 @@ import { Loader2 } from 'lucide-react'
 
 export function ChatContainer() {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const { sendMessage, isConnected } = useWebSocket()
+  const { sendMessage, isConnected } = useWebSocket('ws://localhost:8000/ws')
   const {
     conversations,
     activeConversationId,

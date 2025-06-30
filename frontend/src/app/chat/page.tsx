@@ -1,35 +1,14 @@
-"use client"
-
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useAuthStore } from '@/lib/auth'
+import { auth } from "@clerk/nextjs/server"
+import { redirect } from "next/navigation"
+import { UserButton } from "@clerk/nextjs"
 import { ChatContainer } from '@/components/chat/chat-container'
-import { AuthManager } from '@/components/auth/auth-manager'
 
-export default function ChatPage() {
-  const { isAuthenticated, checkAuth, isLoading } = useAuthStore()
-  const router = useRouter()
-
-  useEffect(() => {
-    checkAuth()
-  }, [checkAuth])
-
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/login')
-    }
-  }, [isAuthenticated, isLoading, router])
-
-  // Show loading while checking authentication
-  if (isLoading || !isAuthenticated) {
-    return (
-      <div className="h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading chat...</p>
-        </div>
-      </div>
-    )
+export default async function ChatPage() {
+  const { userId } = await auth()
+  
+  // Double-check authentication on the server side
+  if (!userId) {
+    redirect('/')
   }
 
   return (
@@ -41,7 +20,7 @@ export default function ChatPage() {
             <h1 className="text-xl font-semibold text-gray-900">AI Chat Assistant</h1>
             <p className="text-sm text-gray-600">Powered by Pydantic AI & MCP</p>
           </div>
-          <AuthManager />
+          <UserButton afterSignOutUrl="/" />
         </div>
       </header>
 
