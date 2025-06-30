@@ -1,0 +1,2 @@
+@echo off
+wsl -e bash -c "cd /mnt/d/CLAUDE/task-pilot-v2/server && source venv/bin/activate && python3 mcp_server_stdio.py"

@@ -1,12 +1,13 @@
 # MCP Server Requirements
 
-# Core dependencies
-fastapi>=0.115.12
-uvicorn[standard]>=0.27.1
+# Core MCP dependencies
+mcp>=1.0.0
 httpx>=0.28.1
 
-# MCP framework
-fastmcp
+# Optional: FastAPI version for HTTP server (not used by Claude Desktop)
+# fastapi>=0.115.12
+# uvicorn[standard]>=0.27.1
+# fastmcp
 
 # Development dependencies (optional)
 # pytest==8.0.1
