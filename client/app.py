@@ -13,11 +13,8 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel, EmailStr
 
 from conversation_agent import get_conversation_agent as get_agent, ChatContext
-from database import ChatDatabase
+from database_factory import db
 from config import config
-
-# Initialize database
-db = ChatDatabase()
 
 # Security
 security = HTTPBearer()

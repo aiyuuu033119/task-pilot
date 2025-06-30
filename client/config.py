@@ -32,7 +32,22 @@ class Config:
     APP_PORT = int(os.getenv("APP_PORT", 8000))
     
     # Database settings
-    DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./chat_history.db")
+    DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./task_pilot.db")
+    
+    # PostgreSQL settings (when using PostgreSQL)
+    POSTGRES_USER = os.getenv("POSTGRES_USER", "taskpilot")
+    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "password")
+    POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
+    POSTGRES_PORT = int(os.getenv("POSTGRES_PORT", 5432))
+    POSTGRES_DB = os.getenv("POSTGRES_DB", "taskpilot")
+    
+    # Auto-construct PostgreSQL URL if not explicitly set
+    if not os.getenv("DATABASE_URL") and all([
+        os.getenv("POSTGRES_USER"), 
+        os.getenv("POSTGRES_PASSWORD"), 
+        os.getenv("POSTGRES_DB")
+    ]):
+        DATABASE_URL = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
     
     # Chat settings
     MAX_CHAT_HISTORY = 50  # Maximum messages to keep in context
