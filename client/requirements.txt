@@ -13,6 +13,10 @@ pydantic-ai-slim[openai,anthropic]==0.0.15
 
 # Database
 aiosqlite
+asyncpg>=0.29.0
+psycopg2-binary>=2.9.9
+sqlalchemy>=2.0.25
+alembic>=1.13.1
 
 # Authentication
 email-validator>=2.0.0
